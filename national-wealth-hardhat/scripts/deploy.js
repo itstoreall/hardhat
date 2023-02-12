@@ -15,13 +15,13 @@ const deploy = async () => {
   }
 
   const currentValue = await citizenAccount.retrieve()
-  console.log('Current value:', currentValue)
+  console.log('Current value:', currentValue.toString())
 
   const txResponse = await citizenAccount.store(7)
   await txResponse.wait(1)
 
   const updatedValue = await citizenAccount.retrieve()
-  console.log('Updated value:', updatedValue)
+  console.log('Updated value:', updatedValue.toString())
 }
 
 const verify = async (contractAddress, args) => {
