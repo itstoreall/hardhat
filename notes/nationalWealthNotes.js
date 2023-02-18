@@ -60,7 +60,7 @@ Prettier - Code formatter (default)
 change back .json to .abi
 
 
-*** Hardhat ==========================
+*** Hardhat JavaScript ==========================
 
 yarn init
 yarn add --dev hardhat
@@ -111,6 +111,72 @@ hardhat.config.js
 yarn hardhat verify --help
 yarn hardhat run scripts/deploy.js
 
+==========================
+
+* Node
+
+yarn hardhat node
+
+==========================
+
+* Tests
+
+yarn hardhat test
+
+- Specific test:
+yarn hardhat test --grep update ('update' is a word from the specific test's 'string')
+or
+it.only('..', () => {...})
+
+=========================
+
+* Gas Reporter 
+
+yarn add --dev hardhat-gas-reporter
+
+hardhat.config.js
+
+require('hardhat-gas-reporter')
+
+const COINMARKETCAP_API_KEY = process.env.API_KEY_COINMARKETCAP || '........-84f9-...-a7e5-........
+
+{
+  ...
+  gasReporter: {
+    enabled: true,
+    outputFile: 'gas-report.txt',
+    noColors: true,
+    currency: 'USD',
+    coinmarketcap: COINMARKETCAP_API_KEY,
+    token: 'ETH',
+  },
+}
+
+=========================
+
+* Solidity Coverage
+
+yarn add solidity-coverage --dev
+
+require('solidity-coverage')
+
+yarn hardhat coverage
+
+---
+
+*** Hardhat TypeScript ==========================
+
+yarn add @typechain/ethers-v5 @typechain/hardhat @types/chai @types/node @types/mocha ts-node typechain typescript
+yarn hardhat run scripts/deploy.ts
+
+hardhat.config.ts
+
+import '@typechain/hardhat'
+
+yarn hardhat typechain (to create a typechain-types folder)
+
+---
+
 *** Sources ==========================
 
 Decompiler
@@ -123,7 +189,13 @@ Verifying contracts (hardhat plugin)
 https://hardhat.org/hardhat-runner/plugins/nomiclabs-hardhat-etherscan
 
 API Keys (Etherscan)
-https://etherscan.io/myapikey
+https://etherscan.io/myapikey 
+
+Hardhat Gas Reporter (npm) 
+https://www.npmjs.com/package/hardhat-gas-reporter 
+
+CoinMarketCap Dev (mv@3stdmcm) 
+https://pro.coinmarketcap.com/account 
 
 ==========================
 
