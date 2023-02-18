@@ -18,7 +18,7 @@ describe('citizenAccount', () => {
     assert.equal(currentValue.toString(), expectedValue)
   })
 
-  it.only('Should update to 7', async () => {
+  it('Should update to 7', async () => {
     const exepctedValue = '7'
     const txResponse = await citizenAccount.store(exepctedValue)
     await txResponse.wait(1)
