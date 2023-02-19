@@ -158,6 +158,7 @@ const COINMARKETCAP_API_KEY = process.env.API_KEY_COINMARKETCAP || '........-84f
 
 yarn add solidity-coverage --dev
 
+hardhat.config.js
 require('solidity-coverage')
 
 yarn hardhat coverage
@@ -170,10 +171,38 @@ yarn add @typechain/ethers-v5 @typechain/hardhat @types/chai @types/node @types/
 yarn hardhat run scripts/deploy.ts
 
 hardhat.config.ts
-
 import '@typechain/hardhat'
 
 yarn hardhat typechain (to create a typechain-types folder)
+
+---
+
+*** Fund Me (Hardhat) ==========================
+
+https://github.com/PatrickAlphaC/hardhat-fund-me-fcc
+
+yarn add --dev hardhat (create new project)
+yarn hardhat (create hardhat)
+
+---
+
+* Solhint 
+
+yarn add --dev solhint
+yarn solhint contracts/*.sol
+
+.solhint.json
+{
+    "extends": "solhint:recommended",
+    "rules": {
+        "compiler-version": ["error", "^0.8.9"],
+        "func-visibility": ["warn", { "ignoreConstructors": true }]
+    }
+}
+
+.solhintignore
+node_modules
+contracts/test
 
 ---
 
@@ -196,6 +225,12 @@ https://www.npmjs.com/package/hardhat-gas-reporter
 
 CoinMarketCap Dev (mv@3stdmcm) 
 https://pro.coinmarketcap.com/account 
+
+Solidity Coverage 
+https://www.npmjs.com/package/solidity-coverage 
+
+Solhint 
+https://github.com/protofire/solhint 
 
 ==========================
 
