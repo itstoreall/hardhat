@@ -28,7 +28,9 @@ contract Funding {
     require(
       msg.value.getConversionRate(priceFeed) >= MINIMUM_USD,
       "Didn't sent enough!"
-    ); // 1e18 == 1 * 10 ** 18 == 1000000000000000000
+    );
+
+    // 1e18 == 1 * 10 ** 18 == 1000000000000000000
     // 18 decimals
 
     funders.push(msg.sender);

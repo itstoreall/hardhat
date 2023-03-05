@@ -206,6 +206,58 @@ contracts/test
 
 ---
 
+* @chainlink/contracts
+
+yarn add --dev @chainlink/contracts
+yarn hardhat compile
+
+import "../node_modules/@chainlink/contracts/src...
+
+---
+
+* Hardhat Deploy
+
+yarn add -D hardhat-deploy
+
+hardhat.config.js
+require('hardhat-deploy');
+
+mkdir deploy
+@nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers
+touch deploy/01-deploy-funding.js
+yarn hardhat clean
+yarn hardhat compile
+yarn hardhat deploy
+yarn hardhat node
+yarn hardhat deploy --network goerli
+yarn hardhat deploy --network goerli --tags funding
+
+---
+
+* AAVE (multiple chaines)
+
+touch helper-hardhat-config.js
+
+helper-hardhat-config.js
+const networkConfig = {
+  5: {
+    name: "goerli",
+    ethUsdPriceFeed: "0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e",
+  },
+  80001: {
+    name: "mumbai",
+    ethUsdPriceFeed: "0x0715A7794a1dc8e42615F059dD6e406A6594651A",
+  },
+};
+
+module.exports = {
+  networkConfig,
+};
+
+touch deploy/00-deploy-mocks.js
+
+---
+
 *** Sources ==========================
 
 Decompiler
@@ -231,6 +283,18 @@ https://www.npmjs.com/package/solidity-coverage
 
 Solhint 
 https://github.com/protofire/solhint 
+
+@chainlink/contracts
+https://www.npmjs.com/package/@chainlink/contracts
+
+Hardhat Deploy 
+https://www.npmjs.com/package/hardhat-deploy
+
+Price Feed Contract Addresses 
+https://docs.chain.link/data-feeds/price-feeds/addresses
+
+AAVE V3 (multiple chaines) for helper-hardhat-config.ts
+https://github.com/aave/aave-v3-core/blob/master/helper-hardhat-config.ts
 
 ==========================
 

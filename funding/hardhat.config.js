@@ -2,16 +2,15 @@ require("@nomicfoundation/hardhat-toolbox");
 require("hardhat-deploy");
 require("dotenv").config();
 require("@nomiclabs/hardhat-etherscan");
-// require("./tasks/tasks");
 require("hardhat-gas-reporter");
 require("solidity-coverage");
+// require("./tasks/tasks");
 
 const GOERLI_RPC_URL = process.env.RPC_URL_ALCHEMY || "http://eth-goerli";
 const PRIVATE_KEY = process.env.PRIVATE_KEY_METAMASK || "0xKey";
 const ETHERSCAN_API_KEY = process.env.API_KEY_ETHERSCAN || "Key";
 const COINMARKETCAP_API_KEY = process.env.API_KEY_COINMARKETCAP || "Key";
 
-/** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   // defaultNetwork: "hardhat",
   networks: {
@@ -19,6 +18,7 @@ module.exports = {
       url: GOERLI_RPC_URL,
       accounts: [PRIVATE_KEY],
       chainId: 5,
+      blockConfirmations: 6,
     },
     localhost: {
       url: "http://127.0.0.1:8545",
@@ -26,12 +26,15 @@ module.exports = {
       chainId: 31337,
     },
   },
-  solidity: "0.8.17",
+  // solidity: "0.8.17",
+  solidity: {
+    compilers: [{ version: "0.8.17" }, { version: "0.6.6" }],
+  },
   etherscan: {
     apiKey: ETHERSCAN_API_KEY,
   },
   gasReporter: {
-    enabled: true,
+    enabled: false,
     outputFile: "gas-report.txt",
     noColors: true,
     currency: "USD",
