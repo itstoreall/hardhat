@@ -17,13 +17,11 @@ contract Funding {
   using PriceConverter for uint256;
 
   // State variables (Style Guide)
+  mapping(address => uint256) public addressToAmountFunded;
+  address[] public funders;
+  address public immutable i_owner;
   uint256 public constant MINIMUM_USD = 0.02 * 1e18; // 1 * 10 ** 18
   // 0.02 / 1625 = 0.000012484592145 (12400000000000 Wei)
-
-  address[] public funders;
-  mapping(address => uint256) public addressToAmountFunded;
-
-  address public immutable i_owner;
 
   AggregatorV3Interface public priceFeed;
 
@@ -52,6 +50,7 @@ contract Funding {
     priceFeed = AggregatorV3Interface(priceFeedAddress);
   }
 
+  /*
   receive() external payable {
     fund();
   }
@@ -59,6 +58,7 @@ contract Funding {
   fallback() external payable {
     fund();
   }
+  */
 
   /** (Style Guide)
    * @notice This function funds this contract
@@ -67,7 +67,7 @@ contract Funding {
   function fund() public payable {
     require(
       msg.value.getConversionRate(priceFeed) >= MINIMUM_USD,
-      "Didn't sent enough!"
+      "Didn't sent enough ETH!"
     );
 
     // 1e18 == 1 * 10 ** 18 == 1000000000000000000

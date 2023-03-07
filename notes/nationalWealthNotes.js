@@ -223,7 +223,7 @@ hardhat.config.js
 require('hardhat-deploy');
 
 mkdir deploy
-@nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers
+yarn add --D hardhat @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers@5.7.2
 touch deploy/01-deploy-funding.js
 yarn hardhat clean
 yarn hardhat compile
@@ -295,6 +295,38 @@ https://docs.chain.link/data-feeds/price-feeds/addresses
 
 AAVE V3 (multiple chaines) for helper-hardhat-config.ts
 https://github.com/aave/aave-v3-core/blob/master/helper-hardhat-config.ts
+
+
+*** Solidity Style Guide ==========================
+
+*/
+
+/**
+ * @title A contract for funding
+ * @author Serhii
+ * @notice This contract is demo for Funding contract
+ * @dev This implements price feeds as our library
+ */
+
+/*
+
+Functions order:
+constructor
+receive
+fallback
+external
+public
+internal
+private
+view / pure
+
+*** Sources ==========================
+
+Order of Layout
+https://docs.soliditylang.org/en/latest/style-guide.html#order-of-layout
+
+NatSpec Format
+https://docs.soliditylang.org/en/latest/style-guide.html#natspec
 
 ==========================
 
