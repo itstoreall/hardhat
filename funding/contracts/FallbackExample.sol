@@ -23,10 +23,10 @@ contract FallbackExample {
 
 //  Ether is sent to contract
 //        is msg.data empty?
-//               /    \
-//             yes     no
-//             /        \
-//      receive()?   fallback()
+//              /     \
+//            yes      no
+//            /         \
+//       receive()?   fallback()
 //        /     \
 //      yes      no
 //      /         \
