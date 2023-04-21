@@ -3,6 +3,7 @@
 pragma solidity ^0.8.17;
 
 import "./PriceConverter.sol";
+import "hardhat/console.sol";
 
 // Interfaces, Libraries, Contracts (Style Guide)
 
@@ -81,6 +82,8 @@ contract Funding {
       address funder = funders[funderIdx];
       addressToAmountFunded[funder] = 0;
     }
+
+    console.log("!!!!! ---> withdraw");
 
     funders = new address[](0);
 
