@@ -4,6 +4,9 @@ yarn commands:
 yarn add --dev hardhat
 yarn hardhat
 yarn hardhat compile
+yarn add -D @chainlink/contracts
+yarn global add hardhat-shorthand
+npm install -g hardhat-shorthand
 
 mkdir lottery
 yarn add --dev hardhat
@@ -33,5 +36,13 @@ require("hardhat-gas-reporter")
 require("hardhat-contract-sizer")
 require("dotenv").config()
 
+yarn add -D @chainlink/contracts
+
+================================
+
+Sources:
+
+https://docs.chain.link/vrf/v2/subscription/examples/get-a-random-number
+https://docs.soliditylang.org/en/v0.8.19/types.html#modulo
 
 */
