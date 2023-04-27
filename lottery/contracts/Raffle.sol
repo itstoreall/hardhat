@@ -46,9 +46,8 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
   event RequestedRaffleWinner(uint256 indexed requestId);
   event WinnerPicked(address indexed winner);
 
-  // Functions
   constructor(
-    address vrfCoordinatorV2,
+    address vrfCoordinatorV2, // contract address
     uint256 entranceFee,
     bytes32 gasLane,
     uint64 subscribtionId,
