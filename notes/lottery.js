@@ -42,7 +42,12 @@ yarn add -D @chainlink/contracts
 
 Sources:
 
+https://github.com/PatrickAlphaC/hardhat-smartcontract-lottery-fcc
 https://docs.chain.link/vrf/v2/subscription/examples/get-a-random-number
 https://docs.soliditylang.org/en/v0.8.19/types.html#modulo
+https://docs.chain.link/chainlink-automation/compatible-contracts
+https://docs.soliditylang.org/en/v0.8.19/structure-of-a-contract.html#enum-types
+https://docs.soliditylang.org/en/v0.8.19/units-and-global-variables.html
+https://docs.chain.link/vrf/v2/subscription/supported-networks
 
 */
