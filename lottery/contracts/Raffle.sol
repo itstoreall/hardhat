@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.18;
 
 import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
+import "hardhat/console.sol";
 
 error Raffle__NotEnoughETHEntered();
 error Raffle__TransferFailed();
@@ -19,15 +20,13 @@ error Raffle__UpkeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint25
  */
 
 contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
-  /* Type declarations */
+  // Type declarations
   enum RaffleState {
     OPEN,
     CALCULATING
   }
 
   // State variables
-  uint256 private immutable i_entranceFee;
-  address payable[] private s_players;
   VRFCoordinatorV2Interface private immutable i_vrfCoordinator;
   bytes32 private immutable i_gasLane;
   uint64 private immutable i_subscriptionId;
@@ -36,35 +35,37 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
   uint32 private constant NUM_WORDS = 1;
 
   // Lottery (global) vars:
+  uint256 private immutable i_entranceFee;
+  address payable[] private s_players;
   address private s_recentWinner;
   RaffleState private s_raffleState;
   uint256 private s_latestTimestamp;
   uint256 private immutable i_interval;
 
   // Events
-  event RaffleEnter(address indexed player);
   event RequestedRaffleWinner(uint256 indexed requestId);
-  event WinnerPicked(address indexed winner);
+  event RaffleEnter(address indexed player);
+  event WinnerPicked(address indexed player);
 
   constructor(
     address vrfCoordinatorV2, // contract address
     uint256 entranceFee,
     bytes32 gasLane,
-    uint64 subscribtionId,
+    uint64 subscriptionId,
     uint32 callbackGasLimit,
     uint256 interval
   ) VRFConsumerBaseV2(vrfCoordinatorV2) {
-    i_entranceFee = entranceFee;
     i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinatorV2);
+    i_entranceFee = entranceFee;
     i_gasLane = gasLane;
-    i_subscriptionId = subscribtionId;
+    i_subscriptionId = subscriptionId;
     i_callbackGasLimit = callbackGasLimit;
     s_raffleState = RaffleState.OPEN;
     s_latestTimestamp = block.timestamp;
     i_interval = interval;
   }
 
-  function enterRuffle() public payable {
+  function enterRaffle() public payable {
     if (msg.value < i_entranceFee) {
       revert Raffle__NotEnoughETHEntered();
     }
@@ -94,20 +95,22 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
   ) public view override returns (bool upkeepNeeded, bytes memory /* performData */) {
     bool isOpen = (RaffleState.OPEN == s_raffleState);
     bool timePassed = ((block.timestamp - s_latestTimestamp) > i_interval);
-    bool hasPlayers = (s_players.length > 0);
+    bool hasPlayers = s_players.length > 0;
     bool hasBalance = address(this).balance > 0;
     upkeepNeeded = (isOpen && timePassed && hasPlayers && hasBalance);
+    return (upkeepNeeded, "0x0");
   }
 
   function performUpkeep(bytes calldata /* performData */) external override {
     (bool upkeepNeeded, ) = checkUpkeep("");
 
-    if (!upkeepNeeded)
+    if (!upkeepNeeded) {
       revert Raffle__UpkeepNotNeeded(
         address(this).balance,
         s_players.length,
         uint256(s_raffleState)
       );
+    }
 
     s_raffleState = RaffleState.CALCULATING;
 
@@ -136,7 +139,9 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
 
     (bool success, ) = recentWinner.call{value: address(this).balance}("");
 
-    if (!success) revert Raffle__TransferFailed();
+    if (!success) {
+      revert Raffle__TransferFailed();
+    }
 
     emit WinnerPicked(recentWinner);
   }
@@ -146,7 +151,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     return i_entranceFee;
   }
 
-  function getPlayers(uint256 idx) public view returns (address) {
+  function getPlayer(uint256 idx) public view returns (address) {
     return s_players[idx];
   }
 
@@ -170,7 +175,11 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     return s_latestTimestamp;
   }
 
-  function getRequestConfirmation() public pure returns (uint256) {
+  function getRequestConfirmations() public pure returns (uint256) {
     return REQUEST_CONFIRMATIONS;
+  }
+
+  function getInterval() public view returns (uint256) {
+    return i_interval;
   }
 }
