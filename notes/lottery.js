@@ -50,5 +50,7 @@ https://docs.chain.link/chainlink-automation/compatible-contracts
 https://docs.soliditylang.org/en/v0.8.19/structure-of-a-contract.html#enum-types
 https://docs.soliditylang.org/en/v0.8.19/units-and-global-variables.html
 https://docs.chain.link/vrf/v2/subscription/supported-networks
+https://ethereum-waffle.readthedocs.io/en/latest/matchers.html#emitting-events
+https://hardhat.org/hardhat-network/docs/reference#json-rpc-methods-support
 
 */
