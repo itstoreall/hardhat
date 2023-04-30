@@ -4,7 +4,7 @@ pragma solidity ^0.8.18;
 
 import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
-import "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
 import "hardhat/console.sol";
 
 error Raffle__NotEnoughETHEntered();
@@ -19,7 +19,7 @@ error Raffle__UpkeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint25
  * @dev Implements the Chainlink VRF v2 and Chainlink Keepers
  */
 
-contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
+contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
   // Type declarations
   enum RaffleState {
     OPEN,
@@ -66,13 +66,8 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
   }
 
   function enterRaffle() public payable {
-    if (msg.value < i_entranceFee) {
-      revert Raffle__NotEnoughETHEntered();
-    }
-
-    if (s_raffleState != RaffleState.OPEN) {
-      revert Raffle__NotOpen();
-    }
+    if (msg.value < i_entranceFee) revert Raffle__NotEnoughETHEntered();
+    if (s_raffleState != RaffleState.OPEN) revert Raffle__NotOpen();
 
     s_players.push(payable(msg.sender));
 
