@@ -12,7 +12,7 @@ const enterRaffle = async (args) => {
 
 !developmentChains.includes(network.name)
   ? describe.skip
-  : describe("Raffle", () => {
+  : describe("Raffle unit tests", () => {
       let raffle, vrfCoordinatorV2Mock, raffleEntranceFee, deployer, interval, enterRaffleArgs
       const chainId = network.config.chainId
 
@@ -181,7 +181,7 @@ const enterRaffle = async (args) => {
                 const winnerEndingBalance = await accounts[1].getBalance()
 
                 assert.equal(numPlayers.toString(), "0")
-                assert.equal(raffleState.toString(), "0")
+                assert.equal(raffleState.toString(), "0") // OPEN
                 assert(endingTimestamt > startingTimestamp)
 
                 assert.equal(
