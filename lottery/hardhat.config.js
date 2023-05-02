@@ -1,5 +1,5 @@
 require("@nomiclabs/hardhat-waffle")
-// require("@nomiclabs/hardhat-etherscan")
+require("@nomiclabs/hardhat-etherscan")
 require("hardhat-deploy")
 require("solidity-coverage")
 require("hardhat-gas-reporter")
@@ -9,7 +9,7 @@ require("dotenv").config()
 const GOERLI_RPC_URL = process.env.RPC_URL_ALCHEMY || "http://eth-goerli"
 const PRIVATE_KEY = process.env.PRIVATE_KEY_METAMASK || "0xKey"
 // const COINMARKETCAP_API_KEY = process.env.API_KEY_COINMARKETCAP || "Key"
-// const ETHERSCAN_API_KEY = process.env.API_KEY_ETHERSCAN || "Key"
+const ETHERSCAN_API_KEY = process.env.API_KEY_ETHERSCAN || "Key"
 
 module.exports = {
   defaultNetwork: "hardhat",
@@ -28,6 +28,11 @@ module.exports = {
     //   chainId: 31337,
     // },
   },
+  etherscan: {
+    apiKey: {
+      goerli: ETHERSCAN_API_KEY,
+    },
+  },
   gasReporter: {
     enabled: false,
     outputFile: "gas-report.txt",
@@ -44,5 +49,8 @@ module.exports = {
     player: {
       default: 1,
     },
+  },
+  mocha: {
+    timeout: 100000, // 30 sec max
   },
 }

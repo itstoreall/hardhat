@@ -4,6 +4,7 @@ yarn commands:
 yarn add --dev hardhat
 yarn hardhat
 yarn hardhat compile
+yarn hardhat deploy --network goerli
 
 yarn add -D @chainlink/contracts
 yarn global add hardhat-shorthand
@@ -52,5 +53,9 @@ https://docs.soliditylang.org/en/v0.8.19/units-and-global-variables.html
 https://docs.chain.link/vrf/v2/subscription/supported-networks
 https://ethereum-waffle.readthedocs.io/en/latest/matchers.html#emitting-events
 https://hardhat.org/hardhat-network/docs/reference#json-rpc-methods-support
+https://vrf.chain.link/goerli
+https://automation.chain.link/goerli
+https://faucets.chain.link/goerli
+https://goerli.etherscan.io/address/0x931AdF990d213a7eb2Ac2fcC1E860c4181679cCC
 
 */
